@@ -2,6 +2,7 @@
 import HomePageFastDesing from "@/Component/HomePageFastDesing";
 import HomePageSecondSection from "@/Component/HomePageSecondSection";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Home = () => {
@@ -30,9 +31,9 @@ const Home = () => {
       <div>
         <h2 className="text-[24px] font-semibold mb-5  "> Your Friends </h2>
         {/* friend list */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className=" px-5 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {friends.map((friend) => (
-            <div
+            <Link href={`/home/${friend.id}`}
               key={friend.id}
               className="border p-8 cursor-pointer  bg-white border-gray-50  rounded-2xl shadow-md flex flex-col items-center justify-center gap-2 hover:shadow-lg hover:transition-shadow hover:border-gray-200 hover:bg-gray-50 "
             >
@@ -77,7 +78,7 @@ const Home = () => {
               >
                 {friend.status}
               </p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
