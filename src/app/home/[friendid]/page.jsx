@@ -8,6 +8,7 @@ import { MdOutlineWifiCalling3 } from "react-icons/md";
 import { BsChatSquareText } from "react-icons/bs";
 import { IoVideocamOutline } from "react-icons/io5";
 import { MyContext } from "@/app/layout";
+import { toast } from "react-toastify";
 
 const FriendsDetails = ({ params }) => {
   const { friendid } = React.use(params);
@@ -23,7 +24,7 @@ const FriendsDetails = ({ params }) => {
   const friend = friends.find((f) => f.id === parseInt(friendid));
   const { friendData, setFriendData } = useContext(MyContext);
 
-  if (!friend) return <div className="p-10 text-center">Friend not found!</div>;
+  if (!friend) return <div className="p-10 text-center "> <span className="loading loading-spinner loading-xl my-50 "></span></div>;
 
   const updateCall = () => {
     setFriendData([
@@ -39,13 +40,14 @@ const FriendsDetails = ({ params }) => {
         }),
       },
     ]);
+    toast.success(`Call with ${friend.name}`);
   };
   const updateText = () => {
     setFriendData([
       ...friendData,
       {
         id: friend.id,
-        type: "Text",
+        type: "text",
         name: friend.name,
         time: new Date().toLocaleDateString("en-US", {
           year: "numeric",
@@ -54,13 +56,14 @@ const FriendsDetails = ({ params }) => {
         }),
       },
     ]);
+    toast.success(`Text with ${friend.name}`);
   };
   const updateVideo = () => {
     setFriendData([
       ...friendData,
       {
         id: friend.id,
-        type: "Video",
+        type: "video",
         name: friend.name,
         time: new Date().toLocaleDateString("en-US", {
           year: "numeric",
@@ -69,7 +72,8 @@ const FriendsDetails = ({ params }) => {
         }),
       },
     ]);
-    console.log("Updated friendData in FriendsDetails: ", friendData);
+    toast.success(`Video call with ${friend.name}`);
+    // console.log("Updated friendData in FriendsDetails: ", friendData);
   };
 
   return (
