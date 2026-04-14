@@ -9,7 +9,7 @@ import { BsChatSquareText } from "react-icons/bs";
 import { IoVideocamOutline } from "react-icons/io5";
 import { MyContext } from "@/app/layout";
 
-const FriendsDetails = ({ params ,}) => {
+const FriendsDetails = ({ params }) => {
   const { friendid } = React.use(params);
   const [friends, setFriends] = useState([]);
   useEffect(() => {
@@ -21,22 +21,56 @@ const FriendsDetails = ({ params ,}) => {
     fetchFriends();
   }, []);
   const friend = friends.find((f) => f.id === parseInt(friendid));
-    const {friendData, setFriendData}= useContext(MyContext);
+  const { friendData, setFriendData } = useContext(MyContext);
 
   if (!friend) return <div className="p-10 text-center">Friend not found!</div>;
 
-
-  
- const updateCall = () => {
-  setFriendData([...friendData, {id: friend.id, type: 'call', details:  friend.name , time: new Date().toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })}]);
-  console.log("Updated friendData in FriendsDetails: ", friendData);
- }
- 
-
+  const updateCall = () => {
+    setFriendData([
+      ...friendData,
+      {
+        id: friend.id,
+        type: "call",
+        name: friend.name,
+        time: new Date().toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }),
+      },
+    ]);
+  };
+  const updateText = () => {
+    setFriendData([
+      ...friendData,
+      {
+        id: friend.id,
+        type: "Text",
+        name: friend.name,
+        time: new Date().toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }),
+      },
+    ]);
+  };
+  const updateVideo = () => {
+    setFriendData([
+      ...friendData,
+      {
+        id: friend.id,
+        type: "Video",
+        name: friend.name,
+        time: new Date().toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }),
+      },
+    ]);
+    console.log("Updated friendData in FriendsDetails: ", friendData);
+  };
 
   return (
     <div className="container mx-auto  py-8">
@@ -152,24 +186,33 @@ const FriendsDetails = ({ params ,}) => {
           </div>
           {/* c div  */}
           <div className=" lg:flex justify-around  ">
-            <div onClick={updateCall} className="border cursor-pointer  p-8 px-30 mt-2  bg-gray-50 border-gray-50  rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-100  ">
+            <div
+              onClick={updateCall}
+              className="border cursor-pointer  p-8 px-30 mt-2  bg-gray-50 border-gray-50  rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-100  "
+            >
               <h2 className="text-[32px] font-semibold text-[#1F2937] ">
                 {" "}
-               <MdOutlineWifiCalling3 />
+                <MdOutlineWifiCalling3 />
               </h2>
               <p className="text-[20px]   ">Call</p>
             </div>
-            <div className="border p-8 mt-2 px-30 cursor-pointer bg-gray-50 border-gray-50  rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-100  ">
+            <div
+              onClick={updateText}
+              className="border p-8 mt-2 px-30 cursor-pointer bg-gray-50 border-gray-50  rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-100  "
+            >
               <h2 className="text-[32px] font-semibold text-[#1F2937] ">
                 {" "}
-              <BsChatSquareText />
+                <BsChatSquareText />
               </h2>
               <p className="text-[20px]   ">Text</p>
             </div>
-            <div className="border p-8 mt-2 px-30 cursor-pointer bg-gray-50 border-gray-50  rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-100   ">
+            <div
+              onClick={updateVideo}
+              className="border p-8 mt-2 px-30 cursor-pointer bg-gray-50 border-gray-50  rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-100   "
+            >
               <h2 className="text-[32px] font-semibold text-[#1F2937] ">
                 {" "}
-               <IoVideocamOutline />
+                <IoVideocamOutline />
               </h2>
               <p className="text-[20px]  ">Video</p>
             </div>

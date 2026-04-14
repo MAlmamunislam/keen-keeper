@@ -27,7 +27,7 @@ export const MyContext =createContext();
 
 export default function RootLayout({ children }) {
   const [friendData, setFriendData] = useState([]);
-  console.log("friendData in RootLayout: ", friendData);
+
   
   return (
     <html
