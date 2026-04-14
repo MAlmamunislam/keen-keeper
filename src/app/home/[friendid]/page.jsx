@@ -1,11 +1,15 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { RiAlarmSnoozeLine } from "react-icons/ri";
 import { IoArchiveOutline } from "react-icons/io5";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { MdOutlineWifiCalling3 } from "react-icons/md";
+import { BsChatSquareText } from "react-icons/bs";
+import { IoVideocamOutline } from "react-icons/io5";
+import { MyContext } from "@/app/layout";
 
-const FriendsDetails = ({ params }) => {
+const FriendsDetails = ({ params ,}) => {
   const { friendid } = React.use(params);
   const [friends, setFriends] = useState([]);
   useEffect(() => {
@@ -17,8 +21,22 @@ const FriendsDetails = ({ params }) => {
     fetchFriends();
   }, []);
   const friend = friends.find((f) => f.id === parseInt(friendid));
+    const {friendData, setFriendData}= useContext(MyContext);
 
   if (!friend) return <div className="p-10 text-center">Friend not found!</div>;
+
+
+  
+ const updateCall = () => {
+  setFriendData([...friendData, {id: friend.id, type: 'call', details:  friend.name , time: new Date().toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })}]);
+  console.log("Updated friendData in FriendsDetails: ", friendData);
+ }
+ 
+
 
   return (
     <div className="container mx-auto  py-8">
@@ -90,30 +108,72 @@ const FriendsDetails = ({ params }) => {
         <div className="lg:col-span-2">
           {/* a div  */}
           <div className="   lg:flex justify-around   ">
-              <div className="border p-8 mt-4   bg-white border-gray-50  rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 lg:px-12  ">
-          <h2 className="text-[32px] font-semibold text-[#1F2937] "> {friend.days_since_contact} </h2>
-          <p className="text-[18px] text-[#64748B]  ">Days Since Contact </p>
-        </div>
-                <div className="border p-8 mt-2   bg-white border-gray-50  rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 lg:px-20 ">
-          <h2 className="text-[32px] font-semibold text-[#1F2937] "> {friend.goal} </h2>
-          <p className="text-[18px] text-[#64748B]  ">Goal (Days) </p>
-        </div>
-                <div className="border p-8 mt-2  bg-white border-gray-50  rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2  ">
-          <h2 className="text-[32px] font-semibold text-[#1F2937] "> {friend.next_due_date} </h2>
-          <p className="text-[18px] text-[#64748B]  ">Next Due </p>
-        </div>
+            <div className="border p-8 mt-4   bg-white border-gray-50  rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 lg:px-12  ">
+              <h2 className="text-[32px] font-semibold text-[#1F2937] ">
+                {" "}
+                {friend.days_since_contact}{" "}
+              </h2>
+              <p className="text-[18px] text-[#64748B]  ">
+                Days Since Contact{" "}
+              </p>
+            </div>
+            <div className="border p-8 mt-2   bg-white border-gray-50  rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 lg:px-20 ">
+              <h2 className="text-[32px] font-semibold text-[#1F2937] ">
+                {" "}
+                {friend.goal}{" "}
+              </h2>
+              <p className="text-[18px] text-[#64748B]  ">Goal (Days) </p>
+            </div>
+            <div className="border p-8 mt-2  bg-white border-gray-50  rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2  ">
+              <h2 className="text-[32px] font-semibold text-[#1F2937] ">
+                {" "}
+                {friend.next_due_date}{" "}
+              </h2>
+              <p className="text-[18px] text-[#64748B]  ">Next Due </p>
+            </div>
           </div>
           {/* b div */}
           <div className="border bg-white border-gray-50 p-5 m-5 rounded-2xl space-y-8 shadow-sm">
-               <div className="flex justify-between">
-                    <h2 className="text-[20px]   text-[#244D3F] font-bold  "> Relationship Goal </h2>
-                    <button className="btn">Edit</button>
-               </div> 
-               <p className="text-[18px] text-[#64748B] " > Connect every <span className="font-bold text-black"> {friend.goal} days   </span> </p>
+            <div className="flex justify-between">
+              <h2 className="text-[20px]   text-[#244D3F] font-bold  ">
+                {" "}
+                Relationship Goal{" "}
+              </h2>
+              <button className="btn">Edit</button>
+            </div>
+            <p className="text-[18px] text-[#64748B] ">
+              {" "}
+              Connect every{" "}
+              <span className="font-bold text-black">
+                {" "}
+                {friend.goal} days{" "}
+              </span>{" "}
+            </p>
           </div>
           {/* c div  */}
-          <div></div>
-
+          <div className=" lg:flex justify-around  ">
+            <div onClick={updateCall} className="border cursor-pointer  p-8 px-30 mt-2  bg-gray-50 border-gray-50  rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-100  ">
+              <h2 className="text-[32px] font-semibold text-[#1F2937] ">
+                {" "}
+               <MdOutlineWifiCalling3 />
+              </h2>
+              <p className="text-[20px]   ">Call</p>
+            </div>
+            <div className="border p-8 mt-2 px-30 cursor-pointer bg-gray-50 border-gray-50  rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-100  ">
+              <h2 className="text-[32px] font-semibold text-[#1F2937] ">
+                {" "}
+              <BsChatSquareText />
+              </h2>
+              <p className="text-[20px]   ">Text</p>
+            </div>
+            <div className="border p-8 mt-2 px-30 cursor-pointer bg-gray-50 border-gray-50  rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-100   ">
+              <h2 className="text-[32px] font-semibold text-[#1F2937] ">
+                {" "}
+               <IoVideocamOutline />
+              </h2>
+              <p className="text-[20px]  ">Video</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
