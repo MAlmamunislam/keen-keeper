@@ -34,7 +34,7 @@ const Home = () => {
         {/* friend list */}
         <div className=" px-5 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {friends.map((friend) => (
-            <Link href={`/home/${friend.id}`}
+            <Link href={`/${friend.id}`}
               key={friend.id}
               className="border p-8 cursor-pointer  bg-white border-gray-50  rounded-2xl shadow-md flex flex-col items-center justify-center gap-2 hover:shadow-lg hover:transition-shadow hover:border-gray-200 hover:bg-gray-50 "
             >

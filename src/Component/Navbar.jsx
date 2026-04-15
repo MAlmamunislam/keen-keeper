@@ -21,7 +21,7 @@ const Navbar = () => {
         <div className="">
           <ul className="flex items-center pr-4 gap-2 md:gap-8">
             <li >
-              <Link  href="/home" className={`flex items-center gap-1 ${pathname === "/home" ? "bg-[#244D3F] text-white p-1 rounded-md md:p-2"  : ""}`} ><IoHomeOutline /> Home</Link>
+              <Link  href="/" className={`flex items-center gap-1 ${pathname === "/" ? "bg-[#244D3F] text-white p-1 rounded-md md:p-2"  : ""}`} ><IoHomeOutline /> Home</Link>
             </li>
             <li>
                  <Link href="/timeline" className={`flex items-center gap-1 ${pathname === "/timeline" ? "bg-[#244D3F] text-white p-1 rounded-md md:p-2" : ""}`} ><RiTimeLine /> TimeLine</Link>
